@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>模具調校規格表 ｜ 惟家 JustPlus</title>
+  <meta name="description" content="惟家 JustPlus 模具調校規格表 — 線上填寫、自動儲存、下載 PDF" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== 品牌頁首 ===== -->
+  <header class="app-header">
+    <div class="app-header__inner">
+      <div class="app-header__brand">
+        <span class="app-header__logo">惟家 JustPlus</span>
+        <h1 class="app-header__title">模具調校規格表</h1>
+        <span class="app-header__sub">Mold Tuning Spec Sheet</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== 工具列（不列印） ===== -->
+  <div class="toolbar no-print">
+    <div class="toolbar__group">
+      <label class="toolbar__label" for="recordSelect">目前規格表</label>
+      <select id="recordSelect" class="toolbar__select" title="切換規格表"></select>
+      <button type="button" class="btn btn--outline" data-action="new">＋ 新增</button>
+      <button type="button" class="btn btn--outline" data-action="rename">重新命名</button>
+      <button type="button" class="btn btn--outline" data-action="duplicate">複製</button>
+      <button type="button" class="btn btn--outline btn--danger" data-action="delete">刪除</button>
+    </div>
+    <div class="toolbar__group toolbar__group--right">
+      <span id="saveStatus" class="save-status">已自動儲存 ✓</span>
+      <button type="button" class="btn btn--outline" data-action="import">匯入</button>
+      <button type="button" class="btn btn--outline" data-action="export">匯出</button>
+      <button type="button" class="btn btn--primary" data-action="pdf">下載 PDF</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json,.json" hidden />
+  </div>
+
+  <!-- ===== 規格表本體 ===== -->
+  <main class="sheet" id="sheet">
+    <form id="specForm" autocomplete="off">
+
+      <!-- 1. 產品資訊 -->
+      <h2 class="section-title">1. 產品資訊</h2>
+      <table class="grid">
+        <tbody>
+          <tr>
+            <th class="lbl">產品尺寸</th>
+            <td class="val" colspan="2"><input type="text" name="p_size" placeholder="例：355.01x251.5x14.49 mm" /></td>
+            <th class="lbl">產品肉厚</th>
+            <td class="val" colspan="2"><input type="text" name="p_thickness" placeholder="例：2.0 mm (0.5~2.5 mm)" /></td>
+          </tr>
+          <tr>
+            <th class="lbl">產品體積</th>
+            <td class="val" colspan="2"><input type="text" name="p_volume" placeholder="例：82.26 cc" /></td>
+            <th class="lbl">冷流道體積</th>
+            <td class="val" colspan="2"><input type="text" name="runner_volume" placeholder="例：14.19 cc" /></td>
+          </tr>
+          <tr>
+            <th class="lbl">材料</th>
+            <td class="val" colspan="2"><input type="text" name="material" placeholder="例：PC+ABS" /></td>
+            <th class="lbl">材料型號</th>
+            <td class="val" colspan="2"><input type="text" name="material_model" placeholder="例：C6200（SABIC）" /></td>
+          </tr>
+          <tr>
+            <th class="lbl">料溫範圍</th>
+            <td class="val" colspan="2"><input type="text" name="melt_temp" placeholder="例：245~275℃" /></td>
+            <th class="lbl">模溫範圍</th>
+            <td class="val" colspan="2"><input type="text" name="mold_temp" placeholder="例：60~80℃" /></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 2. 機台規格 -->
+      <h2 class="section-title">2. 機台規格</h2>
+      <table class="grid">
+        <tbody>
+          <tr>
+            <th class="lbl">製造商</th>
+            <td class="val"><input type="text" name="mfr" /></td>
+            <td class="unit"></td>
+            <th class="lbl">鎖模力</th>
+            <td class="val"><input type="text" name="clamp_force" /></td>
+            <td class="unit">Ton</td>
+            <th class="lbl">螺桿直徑</th>
+            <td class="val"><input type="text" name="screw_dia" /></td>
+            <td class="unit">mm</td>
+          </tr>
+          <tr>
+            <th class="lbl">型號</th>
+            <td class="val"><input type="text" name="model" /></td>
+            <td class="unit"></td>
+            <th class="lbl">射出量</th>
+            <td class="val"><input type="text" name="shot_weight" /></td>
+            <td class="unit">g</td>
+            <th class="lbl">最大螺桿行程</th>
+            <td class="val"><input type="text" name="max_screw_stroke" /></td>
+            <td class="unit">mm</td>
+          </tr>
+          <tr>
+            <th class="lbl">最大射速</th>
+            <td class="val"><input type="text" name="max_inj_speed_ccs" /></td>
+            <td class="unit">cc/s</td>
+            <th class="lbl">最大射速</th>
+            <td class="val"><input type="text" name="max_inj_speed_mms" /></td>
+            <td class="unit">mm/s</td>
+            <th class="lbl">最大射出壓力</th>
+            <td class="val"><input type="text" name="max_inj_pressure" /></td>
+            <td class="unit">MPa</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 3. 加工條件 -->
+      <h2 class="section-title">3. 加工條件</h2>
+
+      <!-- 射出設定 -->
+      <table class="grid grid--proc">
+        <tbody>
+          <tr><td class="bar" colspan="7">射出設定</td></tr>
+          <tr>
+            <th class="lbl">充填時間</th>
+            <td class="val"><input type="text" name="fill_time" /></td>
+            <td class="unit">Sec</td>
+            <td class="note" colspan="4">註：充填時間以射出螺桿實際前進時間為準，<strong>不包括保壓時間</strong></td>
+          </tr>
+          <tr class="seg-head">
+            <th class="lbl">段數</th>
+            <th>I</th><th>II</th><th>III</th><th>IV</th><th>V</th><td class="spacer"></td>
+          </tr>
+          <tr>
+            <th class="lbl">速度</th>
+            <td class="val"><input type="text" name="inj_speed_1" /></td>
+            <td class="val"><input type="text" name="inj_speed_2" /></td>
+            <td class="val"><input type="text" name="inj_speed_3" /></td>
+            <td class="val"><input type="text" name="inj_speed_4" /></td>
+            <td class="val"><input type="text" name="inj_speed_5" /></td>
+            <td class="spacer"></td>
+          </tr>
+          <tr>
+            <th class="lbl">壓力</th>
+            <td class="val"><input type="text" name="inj_pressure_1" /></td>
+            <td class="val"><input type="text" name="inj_pressure_2" /></td>
+            <td class="val"><input type="text" name="inj_pressure_3" /></td>
+            <td class="val"><input type="text" name="inj_pressure_4" /></td>
+            <td class="val"><input type="text" name="inj_pressure_5" /></td>
+            <td class="spacer"></td>
+          </tr>
+          <tr>
+            <th class="lbl">位置(mm)</th>
+            <td class="val"><input type="text" name="inj_pos_1" /></td>
+            <td class="val"><input type="text" name="inj_pos_2" /></td>
+            <td class="val"><input type="text" name="inj_pos_3" /></td>
+            <td class="val"><input type="text" name="inj_pos_4" /></td>
+            <td class="val"><input type="text" name="inj_pos_5" /></td>
+            <td class="vp">(VP)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 保壓設定 -->
+      <table class="grid grid--proc">
+        <tbody>
+          <tr><td class="bar" colspan="7">保壓設定</td></tr>
+          <tr>
+            <th class="lbl">保壓時間</th>
+            <td class="val"><input type="text" name="hold_time" /></td>
+            <td class="unit">Sec</td>
+            <th class="lbl" colspan="2">保壓切換(VP)位置百分比</th>
+            <td class="val"><input type="text" name="vp_percent" /></td>
+            <td class="unit">%</td>
+          </tr>
+          <tr class="seg-head">
+            <th class="lbl">段數</th>
+            <th>I</th><th>II</th><th>III</th><th>IV</th><th>V</th><td class="spacer"></td>
+          </tr>
+          <tr>
+            <th class="lbl">壓力(MPa)</th>
+            <td class="val"><input type="text" name="hold_pressure_1" /></td>
+            <td class="val"><input type="text" name="hold_pressure_2" /></td>
+            <td class="val"><input type="text" name="hold_pressure_3" /></td>
+            <td class="val"><input type="text" name="hold_pressure_4" /></td>
+            <td class="val"><input type="text" name="hold_pressure_5" /></td>
+            <td class="spacer"></td>
+          </tr>
+          <tr>
+            <th class="lbl">時間(Sec)</th>
+            <td class="val"><input type="text" name="hold_seg_time_1" /></td>
+            <td class="val"><input type="text" name="hold_seg_time_2" /></td>
+            <td class="val"><input type="text" name="hold_seg_time_3" /></td>
+            <td class="val"><input type="text" name="hold_seg_time_4" /></td>
+            <td class="val"><input type="text" name="hold_seg_time_5" /></td>
+            <td class="spacer"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 塑料溫度 -->
+      <table class="grid grid--temp">
+        <tbody>
+          <tr class="seg-head">
+            <th class="lbl" rowspan="2">塑料溫度(℃)</th>
+            <th>射嘴</th><th>1</th><th>2</th><th>3</th>
+          </tr>
+          <tr>
+            <td class="val"><input type="text" name="temp_nozzle" /></td>
+            <td class="val"><input type="text" name="temp_zone1" /></td>
+            <td class="val"><input type="text" name="temp_zone2" /></td>
+            <td class="val"><input type="text" name="temp_zone3" /></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 模具溫度 / 冷卻 -->
+      <table class="grid grid--cool">
+        <tbody>
+          <tr>
+            <th class="lbl">模具溫度</th>
+            <td class="opts">
+              <label class="chk"><input type="checkbox" name="mold_fixed_chk" />公模</label>
+              <input type="text" class="inline-input" name="mold_fixed_val" />℃
+              <label class="chk"><input type="checkbox" name="mold_moving_chk" />母模</label>
+              <input type="text" class="inline-input" name="mold_moving_val" />℃
+            </td>
+            <th class="lbl">冷卻時間</th>
+            <td class="val"><input type="text" name="cooling_time" /></td>
+            <td class="unit">Sec</td>
+          </tr>
+          <tr>
+            <th class="lbl">冷卻液種類</th>
+            <td class="opts">
+              <label class="chk"><input type="checkbox" name="coolant_water_chk" />水</label>
+              <label class="chk"><input type="checkbox" name="coolant_oil_chk" />油</label>
+            </td>
+            <th class="lbl">成型週期</th>
+            <td class="val"><input type="text" name="cycle_time" /></td>
+            <td class="unit">Sec</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sheet__meta">
+        <span>規格表名稱：<b id="metaName">—</b></span>
+        <span>最後更新：<b id="metaUpdated">—</b></span>
+      </div>
+    </form>
+  </main>
+
+  <footer class="app-footer no-print">
+    惟家 JustPlus ｜ 模具調校規格表 — 資料僅儲存在你的瀏覽器（localStorage），不會上傳
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

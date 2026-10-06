@@ -1,0 +1,250 @@
+/* ===== 惟家 JustPlus 設計 token ===== */
+:root {
+  --sage: #578d73;        /* 品牌綠：主色 / 表頭 surface */
+  --sage-dark: #4a7a62;   /* sage hover / active */
+  --sage-tint: #eef3f0;   /* 標籤底色（淡 sage） */
+  --olive: #6a9739;       /* 主要動作 CTA */
+  --olive-dark: #5b8430;
+  --lime: #8bc34a;        /* hover 強調 */
+  --navy: #001524;        /* 深色底 footer */
+
+  --bg: #f6f7f5;
+  --card: #ffffff;
+  --foreground: #1c2420;
+  --muted-foreground: #6b7670;
+  --border: #d7ddd9;
+  --border-strong: #b9c2bd;
+  --danger: #b4443a;
+
+  --radius-md: 8px;
+  --radius-xl: 14px;
+  --font-sans: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ===== 品牌頁首 ===== */
+.app-header {
+  background: var(--sage);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.app-header__inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 18px 20px;
+}
+.app-header__brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.app-header__logo {
+  font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+  opacity: 0.92; padding: 2px 8px; border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--radius-md);
+}
+.app-header__title { font-size: 22px; font-weight: 700; margin: 0; }
+.app-header__sub { font-size: 13px; opacity: 0.8; }
+
+/* ===== 工具列 ===== */
+.toolbar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 10px 14px;
+  align-items: center; justify-content: space-between;
+  padding: 10px 20px;
+  max-width: 920px; margin: 0 auto;
+}
+.toolbar__group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.toolbar__group--right { margin-left: auto; }
+.toolbar__label { font-size: 13px; color: var(--muted-foreground); }
+.toolbar__select {
+  min-width: 180px; max-width: 240px;
+  padding: 7px 10px; font-size: 14px;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+  background: #fff; color: var(--foreground);
+}
+.toolbar__select:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 3px rgba(87,141,115,0.2); }
+
+.save-status { font-size: 13px; color: var(--sage); min-width: 92px; text-align: right; transition: opacity .2s; }
+.save-status.saving { color: var(--muted-foreground); }
+
+/* ===== 按鈕 ===== */
+.btn {
+  font-family: inherit; font-size: 14px; font-weight: 500;
+  padding: 7px 14px; border-radius: var(--radius-md);
+  cursor: pointer; border: 1px solid transparent; transition: all .15s;
+  white-space: nowrap;
+}
+.btn--primary { background: var(--olive); color: #fff; }
+.btn--primary:hover { background: var(--olive-dark); }
+.btn--outline { background: #fff; border-color: var(--border-strong); color: var(--foreground); }
+.btn--outline:hover { background: var(--sage-tint); border-color: var(--sage); }
+.btn--danger { color: var(--danger); }
+.btn--danger:hover { background: #faecea; border-color: var(--danger); }
+
+/* ===== 規格表本體 ===== */
+.sheet {
+  max-width: 920px;
+  margin: 20px auto 40px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 28px 30px 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.section-title {
+  font-size: 16px; font-weight: 700; color: var(--sage-dark);
+  margin: 22px 0 8px; padding-left: 10px;
+  border-left: 4px solid var(--sage);
+}
+.section-title:first-child { margin-top: 0; }
+
+/* ===== 格線表格 ===== */
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-bottom: 4px;
+}
+.grid th, .grid td {
+  border: 1px solid var(--border-strong);
+  padding: 0;
+  height: 34px;
+  font-size: 14px;
+  font-weight: 400;
+}
+/* 標籤格 */
+.grid .lbl {
+  background: var(--sage-tint);
+  color: var(--foreground);
+  font-weight: 500;
+  text-align: center;
+  padding: 4px 8px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+/* 區段標題條（射出設定 / 保壓設定） */
+.grid .bar {
+  background: var(--sage);
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.1em;
+  height: 32px;
+}
+/* 段數 / 塑料溫度表頭 */
+.seg-head th {
+  background: var(--sage-tint);
+  color: var(--foreground);
+  font-weight: 600;
+  text-align: center;
+}
+/* 單位格 */
+.grid .unit {
+  background: #fff;
+  color: var(--muted-foreground);
+  text-align: center;
+  font-size: 13px;
+  white-space: nowrap;
+}
+/* 數值格（含 input） */
+.grid .val { background: #fff; padding: 0; }
+.grid .vp { background: #fff; text-align: right; color: var(--muted-foreground); padding-right: 8px; font-size: 13px; }
+.grid .spacer { background: #fff; border: none; }
+.grid .note { background: #fff; text-align: left; padding: 4px 10px; font-size: 13px; color: var(--muted-foreground); }
+.grid .note strong { color: var(--foreground); }
+
+/* input 填滿整格、無框 */
+.grid input[type="text"] {
+  width: 100%; height: 100%; min-height: 32px;
+  border: none; background: transparent;
+  padding: 4px 8px; font-family: inherit; font-size: 14px;
+  color: var(--foreground); text-align: center;
+}
+.grid .s1 input, .grid td.val input { text-align: center; }
+.grid input[type="text"]::placeholder { color: #c3ccc7; font-size: 12px; }
+.grid input[type="text"]:focus {
+  outline: none;
+  background: rgba(139,195,74,0.12);
+  box-shadow: inset 0 0 0 2px var(--sage);
+  border-radius: 2px;
+}
+
+/* 產品資訊 / 機台規格 數值靠左看起來更像原表 */
+.grid:nth-of-type(1) td.val input { text-align: left; }
+
+/* 選項（checkbox）格 */
+.grid .opts { background: #fff; text-align: left; padding: 4px 10px; }
+.chk { display: inline-flex; align-items: center; gap: 4px; margin-right: 14px; font-size: 14px; cursor: pointer; }
+.chk input { accent-color: var(--sage); width: 15px; height: 15px; }
+.inline-input {
+  width: 46px; border: none; border-bottom: 1px solid var(--border-strong);
+  background: transparent; text-align: center; font-family: inherit; font-size: 14px;
+  margin: 0 2px;
+}
+.inline-input:focus { outline: none; border-bottom-color: var(--sage); }
+
+/* 欄寬：加工條件表 — 標籤 + 5 段 + 尾欄 */
+.grid--proc col, .grid--temp col {}
+.grid--proc .lbl { width: 15%; }
+.grid--temp .lbl { width: 15%; }
+
+.sheet__meta {
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  margin-top: 18px; padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px; color: var(--muted-foreground);
+}
+
+/* ===== footer ===== */
+.app-footer {
+  max-width: 920px; margin: 0 auto; padding: 16px 20px 40px;
+  font-size: 12px; color: var(--muted-foreground); text-align: center;
+}
+
+/* ===== 手機 ===== */
+@media (max-width: 640px) {
+  body { font-size: 14px; }
+  .sheet { padding: 16px 12px; margin: 12px; border-radius: var(--radius-md); }
+  .grid th, .grid td { font-size: 12px; height: 30px; }
+  .grid input[type="text"] { font-size: 16px; } /* 防 iOS 放大 */
+  .grid .lbl { letter-spacing: 0.02em; padding: 2px 4px; }
+  .toolbar { padding: 8px 12px; }
+  .toolbar__select { min-width: 140px; }
+}
+
+/* ===== 列印 / PDF ===== */
+@media print {
+  @page { size: A4 portrait; margin: 10mm; }
+  html, body { background: #fff; font-size: 11px; }
+  .no-print { display: none !important; }
+  .app-header {
+    background: var(--sage) !important;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .app-header__inner { padding: 10px 0; max-width: none; }
+  .app-header__title { font-size: 18px; }
+  .sheet {
+    max-width: none; margin: 0; border: none; border-radius: 0;
+    box-shadow: none; padding: 8px 0 0;
+  }
+  .section-title { font-size: 13px; margin: 12px 0 5px; }
+  .grid th, .grid td { height: 26px; font-size: 11px; }
+  .grid .bar, .grid .lbl, .seg-head th, .app-header {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .grid input[type="text"] { font-size: 11px; }
+  .sheet__meta { font-size: 10px; margin-top: 10px; }
+  /* 避免表格被切頁 */
+  table, tr { page-break-inside: avoid; }
+}
