@@ -90,6 +90,39 @@ html, body {
 .btn--outline:hover { background: var(--sage-tint); border-color: var(--sage); }
 .btn--danger { color: var(--danger); }
 .btn--danger:hover { background: #faecea; border-color: var(--danger); }
+.btn--ghost { background: transparent; border-color: transparent; color: var(--sage-dark); text-decoration: underline; text-underline-offset: 3px; }
+.btn--ghost:hover { background: var(--sage-tint); }
+
+/* ===== 填寫資訊（日期 / 填寫人） ===== */
+.meta-fields { display: flex; gap: 22px; flex-wrap: wrap; margin-bottom: 16px; }
+.meta-field { display: flex; align-items: center; gap: 8px; }
+.meta-field label { font-size: 14px; color: var(--muted-foreground); font-weight: 500; white-space: nowrap; }
+.meta-field input {
+  border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+  padding: 6px 10px; font-family: inherit; font-size: 14px; background: #fff; color: var(--foreground);
+}
+.meta-field input:focus { outline: none; border-color: var(--sage); box-shadow: 0 0 0 3px rgba(87,141,115,0.2); }
+
+/* ===== 使用說明彈窗 ===== */
+.modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; }
+.modal[hidden] { display: none; }
+.modal__backdrop { position: absolute; inset: 0; background: rgba(0,21,36,0.45); }
+.modal__box {
+  position: relative; background: #fff; border-radius: var(--radius-xl);
+  max-width: 520px; width: calc(100% - 40px); max-height: 80vh; overflow: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+}
+.modal__head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; background: var(--sage); color: #fff;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+.modal__head h3 { margin: 0; font-size: 17px; }
+.modal__close { background: transparent; border: none; color: #fff; font-size: 24px; line-height: 1; cursor: pointer; padding: 0 4px; }
+.modal__body { padding: 18px 22px; }
+.modal__body ul { margin: 0; padding-left: 20px; }
+.modal__body li { margin-bottom: 10px; font-size: 14px; line-height: 1.6; }
+.modal__body b { color: var(--sage-dark); }
 
 /* ===== 規格表本體 ===== */
 .sheet {

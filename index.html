@@ -30,6 +30,7 @@
       <button type="button" class="btn btn--outline btn--danger" data-action="delete">刪除</button>
     </div>
     <div class="toolbar__group toolbar__group--right">
+      <button type="button" class="btn btn--ghost" data-action="help">使用說明</button>
       <span id="saveStatus" class="save-status">已自動儲存 ✓</span>
       <button type="button" class="btn btn--outline" data-action="import">匯入</button>
       <button type="button" class="btn btn--outline" data-action="export">匯出</button>
@@ -41,6 +42,18 @@
   <!-- ===== 規格表本體 ===== -->
   <main class="sheet" id="sheet">
     <form id="specForm" autocomplete="off">
+
+      <!-- 填寫資訊 -->
+      <div class="meta-fields">
+        <div class="meta-field">
+          <label for="fill_date">填寫日期</label>
+          <input type="date" id="fill_date" name="fill_date" />
+        </div>
+        <div class="meta-field">
+          <label for="fill_by">填寫人</label>
+          <input type="text" id="fill_by" name="fill_by" placeholder="姓名" />
+        </div>
+      </div>
 
       <!-- 1. 產品資訊 -->
       <h2 class="section-title">1. 產品資訊</h2>
@@ -206,14 +219,15 @@
 
       <!-- 塑料溫度 -->
       <table class="grid grid--temp">
-        <colgroup><col style="width:16%"><col style="width:21%"><col style="width:21%"><col style="width:21%"><col style="width:21%"></colgroup>
+        <colgroup><col style="width:16%"><col style="width:14%"><col style="width:14%"><col style="width:18.6%"><col style="width:18.7%"><col style="width:18.7%"></colgroup>
         <tbody>
           <tr class="seg-head">
             <th class="lbl" rowspan="2">塑料溫度(℃)</th>
-            <th>射嘴</th><th>1</th><th>2</th><th>3</th>
+            <th colspan="2">射嘴</th><th>1</th><th>2</th><th>3</th>
           </tr>
           <tr>
-            <td class="val"><input type="text" name="temp_nozzle" /></td>
+            <td class="val"><input type="text" name="temp_nozzle_1" /></td>
+            <td class="val"><input type="text" name="temp_nozzle_2" /></td>
             <td class="val"><input type="text" name="temp_zone1" /></td>
             <td class="val"><input type="text" name="temp_zone2" /></td>
             <td class="val"><input type="text" name="temp_zone3" /></td>
@@ -260,6 +274,27 @@
   <footer class="app-footer no-print">
     惟家 JustPlus ｜ 模具調校規格表 — 資料僅儲存在你的瀏覽器（localStorage），不會上傳
   </footer>
+
+  <!-- 使用說明彈窗 -->
+  <div class="modal no-print" id="helpModal" hidden>
+    <div class="modal__backdrop" data-action="help-close"></div>
+    <div class="modal__box" role="dialog" aria-modal="true" aria-label="使用說明">
+      <div class="modal__head">
+        <h3>使用說明</h3>
+        <button type="button" class="modal__close" data-action="help-close" aria-label="關閉">×</button>
+      </div>
+      <div class="modal__body">
+        <ul>
+          <li><b>自動儲存</b>：邊填邊存，重新整理或關閉再開都還在（存在你這台電腦的瀏覽器）。</li>
+          <li><b>多筆規格表</b>：用左上「＋新增」為不同模具各建一份，可「重新命名／複製／刪除」。</li>
+          <li><b>切換</b>：用左上下拉選單切換不同規格表。</li>
+          <li><b>下載 PDF</b>：按右上「下載 PDF」→ 在列印對話框選「儲存為 PDF」。版面已為 A4 列印優化。</li>
+          <li><b>匯出／匯入</b>：換電腦或傳給同仁時，先「匯出」成 .json 檔，對方再「匯入」。</li>
+          <li><b>資料安全</b>：內容只存在你的瀏覽器、<b>不會上傳</b>。清除瀏覽器資料前記得先匯出備份。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

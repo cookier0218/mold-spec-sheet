@@ -42,7 +42,13 @@
   }
 
   function newRecord(name) {
-    return { id: uid(), name: name, data: {}, updatedAt: nowStr() };
+    return { id: uid(), name: name, data: { fill_date: todayISO() }, updatedAt: nowStr() };
+  }
+
+  function todayISO() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? "0" : "") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
   }
 
   function nowStr() {
@@ -137,7 +143,7 @@
     var rec = newRecord(name);
     state.records.push(rec);
     state.currentId = rec.id;
-    fillForm({});
+    fillForm(rec.data);
     renderRecordSelect();
     renderMeta();
     persist();
@@ -244,6 +250,9 @@
     window.print();
   }
 
+  function openHelp() { document.getElementById("helpModal").hidden = false; }
+  function closeHelp() { document.getElementById("helpModal").hidden = true; }
+
   // ---------- 綁定 ----------
   form.addEventListener("input", scheduleSave);
   form.addEventListener("change", scheduleSave);
@@ -263,8 +272,15 @@
         case "export": actionExport(); break;
         case "import": actionImport(); break;
         case "pdf": actionPdf(); break;
+        case "help": openHelp(); break;
+        case "help-close": closeHelp(); break;
       }
     });
+  });
+
+  // Esc 關閉使用說明
+  window.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeHelp();
   });
 
   // Ctrl/Cmd+P 也先存一次
